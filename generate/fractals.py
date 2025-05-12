@@ -213,7 +213,9 @@ def generate_and_save_fractal(output_dir, num_patterns, num_overlays, shape_seed
         else:
             rotation_random = random
 
-        plt.figure(figsize=(4, 4), dpi=300)
+        initial_angle = rotation_random.uniform(0, 360)  # Random initial angle for the first overlay
+
+        plt.figure(figsize=(5, 5), dpi=300)
         for j in range(num_overlays):
             # Randomize or fix parameters for each overlay
             if isinstance(num_edges, tuple):
@@ -242,11 +244,11 @@ def generate_and_save_fractal(output_dir, num_patterns, num_overlays, shape_seed
                 alpha_val = alpha
 
             if rotation_angle is None:
-                rotation_angle_val = (360 / num_overlays * j)/2
+                rotation_angle_val = initial_angle + ((360 / num_overlays * j)/2 * j)
             elif isinstance(rotation_angle, tuple):
                 rotation_angle_val = rotation_random.uniform(*rotation_angle)
             else:
-                rotation_angle_val = rotation_angle
+                rotation_angle_val = rotation_angle * j
 
             hue = hue_random.uniform(0, 1)  # Random hue
 
@@ -271,16 +273,16 @@ def main():
     """
     parser = argparse.ArgumentParser(description="Generate and save fractal patterns.")
     parser.add_argument("--output_dir", type=str, default="fractal_patterns", help="Output directory for saved patterns.")
-    parser.add_argument("--num_patterns", type=int, default=9, help="Number of fractal patterns to generate.")
-    parser.add_argument("--num_overlays", type=int, default=3, help="Number of fractal patterns to overlay.")
+    parser.add_argument("--num_patterns", type=int, default=10, help="Number of fractal patterns to generate.")
+    parser.add_argument("--num_overlays", type=int, default=5, help="Number of fractal patterns to overlay.")
     parser.add_argument("--shape_seed", type=int, help="Fixed seed for shape randomization.")
     parser.add_argument("--hue_seed", type=int, help="Fixed seed for hue randomization.")
     parser.add_argument("--rotation_seed", type=int, help="Fixed seed for rotation randomization.")
-    parser.add_argument("--num_edges", type=int, nargs='*', default=[2, 6], help="Fixed number of edges or range (e.g., 2 8) for the fractal pattern.")
+    parser.add_argument("--num_edges", type=int, nargs='*', default=[2, 8], help="Fixed number of edges or range (e.g., 2 8) for the fractal pattern.")
     parser.add_argument("--edge_size", type=float, nargs='*', default=[0.5, 1.0], help="Fixed edge size or range (e.g., 0.5 1.0) for the fractal pattern.")
     parser.add_argument("--depth", type=int, nargs='*', default=[2, 5], help="Fixed depth or range (e.g., 2 5) for the fractal pattern.")
     parser.add_argument("--GA", type=float, nargs='*', default=[0.1, 0.3], help="Fixed GA value or range (e.g., 0.1 0.3) for the fractal pattern.")
-    parser.add_argument("--alpha", type=float, nargs='*', default=[0.3, 0.7], help="Fixed alpha value or range (e.g., 0.3 0.7) for the fractal pattern.")
+    parser.add_argument("--alpha", type=float, nargs='*', default=[0.5, 0.5], help="Fixed alpha value or range (e.g., 0.3 0.7) for the fractal pattern.")
     parser.add_argument("--rotation_angle", type=float, nargs='*', default=None, help="Fixed rotation angle or range (e.g., 0 360) for the fractal pattern. Use 'None' for equidistant rotations.")
     parser.add_argument("--scale", type=float, default=0.2, help="Scale factor for successive overlays.")
 
