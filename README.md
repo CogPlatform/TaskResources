@@ -7,5 +7,6 @@ Behavioural task resources for CageLab or other projects.
 3. Quaddles — quaddle 2.0 parametric objects for use in tasks. See https://github.com/xwen1765/blender-quaddle for the details.
 4. Flowers — flower images for use in tasks, CC licensed or public domain.
 5. Things — small sample of the full database for testing purposes only:  https://things-initiative.org
+6. Inanimate/Animate — subsample of animate/inanimate database - Serre, T., Oliva, A., & Poggio, T. (2007). A feedforward architecture accounts for rapid categorization. Proceedings of the National Academy of Sciences of the United States of America, 104(15), 6424–6429. https://doi.org/10.1073/pnas.0700622104
 
 
